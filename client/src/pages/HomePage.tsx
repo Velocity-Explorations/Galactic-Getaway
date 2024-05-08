@@ -26,10 +26,9 @@ const HomePage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        overflow: "hidden", // Prevent scrollbars if any
+        overflow: "hidden",
       }}
     >
-      {/* Video Background */}
       <Box
         component="video"
         autoPlay
