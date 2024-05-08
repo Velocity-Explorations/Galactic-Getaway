@@ -1,13 +1,13 @@
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from _types import PageDataResponse, QuestionRequest, QuestionResponse
 from ai import call_ai
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from utils import age_to_education_level
-from _types import GeneratedQuestionRequest, QuestionRequest
 
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173/"
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
@@ -25,15 +25,20 @@ def read_root():
 
     return {"data": response_text}
 
-@app.get("/summary")
+@app.get("/page_data")
 def read_item(planet: str, age: int):
 
     education_level = age_to_education_level(age)
 
-    response_text = call_ai(f"Generate a summary for a {education_level} student on the {planet}")
+    description = call_ai(f"\n\nHuman: Generate a paragraph description about the {planet} for a {education_level} student \n\nAssistant:")
 
-    return GeneratedQuestionRequest(
-        data=response_text
+    questions_str = call_ai(f"\n\nHuman: Given the following description: {description}, generate 3 questions for a {education_level} student based on the description. Output the only the questions, and follow the format: 'Question 1, Question 2, Question 3' \n\nAssistant:")
+
+    questions = questions_str.split(", ")
+
+    return PageDataResponse(
+        description=description,
+        questions=questions
     )
 
 @app.get("/asked_question")
@@ -43,17 +48,6 @@ def read_item(req: QuestionRequest, planet: str, age: int):
 
     response_text = call_ai(f"Generate an answer for a {education_level} student on the {planet}: The question is: {req.question}")
 
-    return GeneratedQuestionRequest(
-        data=response_text
-    )
-
-@app.get("/generated_question")
-def read_item(planet: str, age: int):
-
-    education_level = age_to_education_level(age)
-
-    response_text = call_ai(f"Generate a question for a {education_level} student on the {planet}")
-
-    return GeneratedQuestionRequest(
+    return QuestionResponse(
         data=response_text
     )

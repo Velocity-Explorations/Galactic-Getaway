@@ -1,7 +1,9 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.tsx";
+import { PageDataResponse } from "../utils/types.ts";
 
 const PlanetDetailPage = () => {
   const { planetName } = useParams();
@@ -9,6 +11,20 @@ const PlanetDetailPage = () => {
   const navigate = useNavigate();
 
   const planet = ctx.planets.find((p) => p.name.toLowerCase() === planetName);
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["planet", planetName],
+    queryFn: () =>
+      fetch(
+        `http://127.0.0.1:8000/page_data?planet=${planet?.name}&age=${ctx.age}`
+      ).then((res) => res.json() as Promise<PageDataResponse | undefined>),
+  });
+
+  console.log(data);
+
+  if (isPending || data === undefined) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message;
 
   if (!planet) {
     return (
@@ -98,30 +114,22 @@ const PlanetDetailPage = () => {
           {planet.name}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {planet.description}
+          {data.description}
         </Typography>
         <Box sx={{ marginTop: "1rem" }}>
-          <Button
-            variant="outlined"
-            sx={{ color: "white", borderColor: "white", marginBottom: "1rem" }}
-            fullWidth
-          >
-            Why does {planet.name} have such a big storm?
-          </Button>
-          <Button
-            variant="outlined"
-            sx={{ color: "white", borderColor: "white", marginBottom: "1rem" }}
-            fullWidth
-          >
-            Can we land a spaceship on {planet.name}?
-          </Button>
-          <Button
-            variant="outlined"
-            sx={{ color: "white", borderColor: "white", marginBottom: "1rem" }}
-            fullWidth
-          >
-            How did {planet.name} get its moons?
-          </Button>
+          {data.questions.map((question) => (
+            <Button
+              variant="outlined"
+              sx={{
+                color: "white",
+                borderColor: "white",
+                marginBottom: "1rem",
+              }}
+              fullWidth
+            >
+              {question}
+            </Button>
+          ))}
         </Box>
         <Button
           variant="outlined"

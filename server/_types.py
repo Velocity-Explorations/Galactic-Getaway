@@ -1,6 +1,6 @@
+from typing import List
+
 from pydantic import BaseModel
-
-
 
 # Request types
 
@@ -12,8 +12,6 @@ class QuestionRequest(BaseModel):
 class QuestionResponse(BaseModel):
     data: str
 
-class SummaryResponse(BaseModel):
-    data: str
-
-class GeneratedQuestionRequest(BaseModel):
-    data: str
+class PageDataResponse(BaseModel):
+    questions: List[str]
+    description: str
