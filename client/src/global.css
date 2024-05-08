@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Michroma";
+  src: url("/src/assets/fonts/Michroma/Michroma-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Jura";
+  src: url("/src/assets/fonts/Jura/Jura-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/src/assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf")
+    format("truetype");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
