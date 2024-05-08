@@ -1,17 +1,16 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import HomePage from "./pages/HomePage.tsx";
-import ProceedPage from "./pages/ProceedPage.tsx";
-import PlanetDetailPage from "./pages/PlanetDetailPage.tsx";
-import { PlanetProvider } from "./context/PlanetContext.tsx";
-import theme from "./theme.ts";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { AppProvider } from "./context/AppContext.tsx";
 import "./global.css";
+import HomePage from "./pages/HomePage.tsx";
+import PlanetDetailPage from "./pages/PlanetDetailPage.tsx";
+import ProceedPage from "./pages/ProceedPage.tsx";
+import theme from "./theme.ts";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <PlanetProvider>
+      <AppProvider>
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -19,7 +18,7 @@ const App = () => {
             <Route path="/planet/:planetName" element={<PlanetDetailPage />} />
           </Routes>
         </Router>
-      </PlanetProvider>
+      </AppProvider>
     </ThemeProvider>
   );
 };

@@ -1,14 +1,14 @@
-import { Box, Paper, Typography, Button, IconButton } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
-import { useParams, useNavigate } from "react-router-dom";
-import { usePlanets } from "../context/PlanetContext.tsx";
+import { Box, Button, IconButton, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppContext } from "../context/AppContext.tsx";
 
 const PlanetDetailPage = () => {
   const { planetName } = useParams();
-  const planets = usePlanets();
+  const ctx = useAppContext();
   const navigate = useNavigate();
 
-  const planet = planets.find((p) => p.name.toLowerCase() === planetName);
+  const planet = ctx.planets.find((p) => p.name.toLowerCase() === planetName);
 
   if (!planet) {
     return (

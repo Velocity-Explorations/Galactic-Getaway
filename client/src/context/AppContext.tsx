@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-export type planet = {
+export type Planet = {
   name: string;
   size: string;
   color: string;
@@ -8,7 +8,13 @@ export type planet = {
   image: string;
 };
 
-const planets: planet[] = [
+type AppContextType = {
+  planets: Planet[];
+  age: number;
+  setAge: (age: number) => void;
+};
+
+const planets: Planet[] = [
   {
     name: "Sun",
     size: "120px",
@@ -83,14 +89,32 @@ const planets: planet[] = [
   },
 ];
 
-const PlanetContext = createContext<planet[]>([]);
+const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export const PlanetProvider = (props: { children: React.ReactNode }) => {
+export const AppProvider = (props: { children: React.ReactNode }) => {
+  const [age, _setAge] = useState(0);
+
+  const setAge = (age: number) => {
+    _setAge(age);
+  };
+
+  const values: AppContextType = {
+    planets,
+    age,
+    setAge,
+  };
+
   return (
-    <PlanetContext.Provider value={planets}>
-      {props.children}
-    </PlanetContext.Provider>
+    <AppContext.Provider value={values}>{props.children}</AppContext.Provider>
   );
 };
 
-export const usePlanets = () => useContext(PlanetContext);
+export function useAppContext() {
+  const ctx = useContext(AppContext);
+
+  if (!ctx) {
+    throw new Error("useAuth must be used within a AppProvider");
+  }
+
+  return ctx;
+}

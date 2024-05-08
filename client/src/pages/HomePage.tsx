@@ -1,22 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
-  Container,
-  TextField,
-  Button,
-  Typography,
   Box,
+  Button,
+  Container,
   Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 const HomePage = () => {
-  const [age, setAge] = useState("");
   const navigate = useNavigate();
+  const ctx = useAppContext();
 
   const handleProceed = () => {
-    if (age) {
-      navigate(`/proceed?age=${age}`);
-    }
+    navigate(`/proceed`);
   };
 
   return (
@@ -35,8 +33,8 @@ const HomePage = () => {
           <TextField
             type="number"
             label="Age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
+            value={ctx.age}
+            onChange={(e) => ctx.setAge(parseInt(e.target.value))}
             sx={{ marginBottom: "1.5rem", width: "100%" }}
           />
           <Button

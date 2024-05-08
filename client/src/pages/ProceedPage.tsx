@@ -1,10 +1,10 @@
-import { Container, Typography, Box } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { usePlanets } from "../context/PlanetContext.jsx";
+import { useAppContext } from "../context/AppContext.js";
 
 const ProceedPage = () => {
   const navigate = useNavigate();
-  const planets = usePlanets();
+  const ctx = useAppContext();
 
   const handlePlanetClick = (planetName: string) => {
     navigate(`/planet/${planetName.toLowerCase()}`);
@@ -28,7 +28,7 @@ const ProceedPage = () => {
           alignItems="center"
           width="100%"
         >
-          {planets.map((planet) => (
+          {ctx.planets.map((planet) => (
             <Box
               key={planet.name}
               sx={{
