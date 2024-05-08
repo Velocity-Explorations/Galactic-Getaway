@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { AppProvider } from "./context/AppContext.tsx";
 import HomePage from "./pages/HomePage.tsx";
-import ProceedPage from "./pages/ProceedPage.tsx";
 import PlanetDetailPage from "./pages/PlanetDetailPage.tsx";
-import { PlanetProvider } from "./context/PlanetContext.tsx";
+import ProceedPage from "./pages/ProceedPage.tsx";
 
 const App = () => {
   return (
-    <PlanetProvider>
+    <AppProvider>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -14,7 +14,7 @@ const App = () => {
           <Route path="/planet/:planetName" element={<PlanetDetailPage />} />
         </Routes>
       </Router>
-    </PlanetProvider>
+    </AppProvider>
   );
 };
 
