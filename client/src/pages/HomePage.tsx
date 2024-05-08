@@ -6,15 +6,34 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import anime from "animejs/lib/anime.es.js";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const ctx = useAppContext();
+  const paperRef = useRef<HTMLDivElement | null>(null);
 
   const handleProceed = () => {
-    navigate(`/proceed`);
+    const paper = paperRef.current;
+    if (paper) {
+      anime({
+        targets: paper,
+        translateY: {
+          value: -window.innerHeight,
+          duration: 800,
+          easing: "easeInOutQuad",
+        },
+        scale: {
+          value: [1, 0],
+          duration: 800,
+          easing: "easeInOutQuad",
+        },
+        complete: () => navigate(`/proceed`),
+      });
+    }
   };
 
   return (
@@ -51,6 +70,7 @@ const HomePage = () => {
 
       <Paper
         elevation={3}
+        ref={paperRef}
         sx={{
           padding: "2rem",
           textAlign: "center",
