@@ -5,6 +5,7 @@ export type planet = {
   size: string;
   color: string;
   description: string;
+  image: string;
 };
 
 const planets: planet[] = [
@@ -14,6 +15,7 @@ const planets: planet[] = [
     color: "#FFD700",
     description:
       "The Sun is the star at the center of the Solar System. It is a nearly perfect ball of hot plasma, and is by far the most important source of energy for life on Earth.",
+    image: "/src/assets/Sun.png",
   },
   {
     name: "Mercury",
@@ -21,6 +23,7 @@ const planets: planet[] = [
     color: "#b9b9b9",
     description:
       "Mercury is the smallest planet in the Solar System and the closest to the Sun.",
+    image: "/src/assets/Mercury.png",
   },
   {
     name: "Venus",
@@ -28,6 +31,7 @@ const planets: planet[] = [
     color: "#f0c27b",
     description:
       'Venus is the second planet from the Sun. It is sometimes called Earth’s "sister planet".',
+    image: "/src/assets/Venus.png",
   },
   {
     name: "Earth",
@@ -35,6 +39,7 @@ const planets: planet[] = [
     color: "#3b99fc",
     description:
       "Earth is the third planet from the Sun and the only astronomical object known to harbor and support life.",
+    image: "/src/assets/Earth.png",
   },
   {
     name: "Mars",
@@ -42,6 +47,7 @@ const planets: planet[] = [
     color: "#e07b39",
     description:
       "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System.",
+    image: "/src/assets/Mars.png",
   },
   {
     name: "Jupiter",
@@ -49,6 +55,7 @@ const planets: planet[] = [
     color: "#d6a46e",
     description:
       "Jupiter is the fifth planet from the Sun and the largest in the Solar System.",
+    image: "/src/assets/Jupiter.png",
   },
   {
     name: "Saturn",
@@ -56,6 +63,7 @@ const planets: planet[] = [
     color: "#f5d49a",
     description:
       "Saturn is the sixth planet from the Sun and the second-largest in the Solar System.",
+    image: "/src/assets/saturn.png",
   },
   {
     name: "Uranus",
@@ -63,6 +71,7 @@ const planets: planet[] = [
     color: "#7fc3ff",
     description:
       "Uranus is the seventh planet from the Sun. It has the third-largest planetary radius.",
+    image: "/src/assets/uranus.png",
   },
   {
     name: "Neptune",
@@ -70,6 +79,7 @@ const planets: planet[] = [
     color: "#5470d6",
     description:
       "Neptune is the eighth and farthest-known Solar planet from the Sun.",
+    image: "/src/assets/neptune.png",
   },
 ];
 
