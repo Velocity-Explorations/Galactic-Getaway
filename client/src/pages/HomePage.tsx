@@ -1,3 +1,4 @@
+// /Users/parissyoungblood/Documents/Velocity/Hackathon/AWS/client/src/pages/HomePage.tsx
 import {
   Box,
   Button,
@@ -10,13 +11,16 @@ import anime from "animejs/lib/anime.es.js";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
+import { useLoadingContext } from "../context/LoadingContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const ctx = useAppContext();
+  const { setLoading } = useLoadingContext();
   const paperRef = useRef<HTMLDivElement | null>(null);
 
   const handleProceed = () => {
+    setLoading(true);
     const paper = paperRef.current;
     if (paper) {
       anime({

@@ -1,3 +1,4 @@
+// /Users/parissyoungblood/Documents/Velocity/Hackathon/AWS/client/src/context/AppContext.tsx
 import { createContext, useContext, useState } from "react";
 
 export type Planet = {
@@ -109,12 +110,12 @@ export const AppProvider = (props: { children: React.ReactNode }) => {
   );
 };
 
-export function useAppContext() {
+export const useAppContext = () => {
   const ctx = useContext(AppContext);
 
   if (!ctx) {
-    throw new Error("useAuth must be used within a AppProvider");
+    throw new Error("useAppContext must be used within a AppProvider");
   }
 
   return ctx;
-}
+};

@@ -1,12 +1,15 @@
+// /Users/parissyoungblood/Documents/Velocity/Hackathon/AWS/client/src/pages/ProceedPage.tsx
 import { Box, Typography } from "@mui/material";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.tsx";
+import { useLoadingContext } from "../context/LoadingContext.tsx";
 
 const ProceedPage = () => {
   const navigate = useNavigate();
   const ctx = useAppContext();
+  const { setLoading } = useLoadingContext();
   const planetsRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   useEffect(() => {
@@ -24,6 +27,7 @@ const ProceedPage = () => {
   }, []);
 
   const handlePlanetClick = (planetName: string) => {
+    setLoading(true);
     const planetElement = planetsRefs.current.get(planetName);
     if (planetElement) {
       anime({
