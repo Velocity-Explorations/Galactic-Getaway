@@ -1,11 +1,11 @@
-import React from "react";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { usePlanets } from "../context/PlanetContext.jsx";
+import { usePlanets } from "../context/PlanetContext.tsx";
 
 const PlanetDetailPage = () => {
   const { planetName } = useParams();
   const planets = usePlanets();
+
   const planet = planets.find((p) => p.name.toLowerCase() === planetName);
 
   if (!planet) {

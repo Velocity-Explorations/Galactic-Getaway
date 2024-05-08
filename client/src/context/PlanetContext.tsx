@@ -1,7 +1,13 @@
-import React, { createContext, useContext } from "react";
-import PropTypes from "prop-types";
+import { createContext, useContext } from "react";
 
-const planets = [
+export type planet = {
+  name: string;
+  size: string;
+  color: string;
+  description: string;
+};
+
+const planets: planet[] = [
   {
     name: "Sun",
     size: "120px",
@@ -67,16 +73,14 @@ const planets = [
   },
 ];
 
-const PlanetContext = createContext([]);
+const PlanetContext = createContext<planet[]>([]);
 
-export const PlanetProvider = ({ children }) => {
+export const PlanetProvider = (props: { children: React.ReactNode }) => {
   return (
-    <PlanetContext.Provider value={planets}>{children}</PlanetContext.Provider>
+    <PlanetContext.Provider value={planets}>
+      {props.children}
+    </PlanetContext.Provider>
   );
-};
-
-PlanetProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export const usePlanets = () => useContext(PlanetContext);

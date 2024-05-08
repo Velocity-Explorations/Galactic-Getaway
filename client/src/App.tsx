@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage.jsx";
-import ProceedPage from "./pages/ProceedPage.jsx";
-import PlanetDetailPage from "./pages/PlanetDetailPage.jsx";
-import { PlanetProvider } from "./context/PlanetContext.jsx";
+import HomePage from "./pages/HomePage.tsx";
+import ProceedPage from "./pages/ProceedPage.tsx";
+import PlanetDetailPage from "./pages/PlanetDetailPage.tsx";
+import { PlanetProvider } from "./context/PlanetContext.tsx";
 
 const App = () => {
   return (

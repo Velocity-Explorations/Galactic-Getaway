@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { usePlanets } from "../context/PlanetContext.jsx";
@@ -7,7 +6,7 @@ const ProceedPage = () => {
   const navigate = useNavigate();
   const planets = usePlanets();
 
-  const handlePlanetClick = (planetName) => {
+  const handlePlanetClick = (planetName: string) => {
     navigate(`/planet/${planetName.toLowerCase()}`);
   };
 
