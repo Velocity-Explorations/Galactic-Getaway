@@ -30,9 +30,9 @@ def read_item(planet: str, age: int):
 
     education_level = age_to_education_level(age)
 
-    description = call_ai(f"Generate a paragraph description about the {planet} for a {education_level} student")
+    description = call_ai(f"\n\nHuman: Generate a paragraph description about the {planet} for a {education_level} student \n\nAssistant:")
 
-    questions_str = call_ai(f"Given this information, generate 3 questions for a {education_level} student in the following format: \"Question 1\", \"Question 2\", \"Question 3\"")
+    questions_str = call_ai(f"\n\nHuman: Given the following description: {description}, generate 3 questions for a {education_level} student based on the description. Output the only the questions, and follow the format: 'Question 1, Question 2, Question 3' \n\nAssistant:")
 
     questions = questions_str.split(", ")
 
