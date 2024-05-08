@@ -1,6 +1,6 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../context/AppContext.js";
+import { useAppContext } from "../context/AppContext.tsx";
 
 const ProceedPage = () => {
   const navigate = useNavigate();
@@ -11,52 +11,87 @@ const ProceedPage = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        height="100vh"
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "black",
+        padding: "2rem",
+        position: "relative",
+      }}
+    >
+      {/* Title */}
+      <Typography
+        variant="h2"
+        gutterBottom
+        sx={{
+          textAlign: "center",
+          textTransform: "uppercase",
+          color: "white",
+          marginBottom: "2rem",
+          fontFamily: "Michroma, sans-serif",
+        }}
       >
-        <Typography variant="h4" gutterBottom>
-          Select a Planet
-        </Typography>
-        <Box
-          display="flex"
-          justifyContent="flex-start"
-          alignItems="center"
-          width="100%"
-        >
-          {ctx.planets.map((planet) => (
+        Galactic Gateway
+      </Typography>
+
+      {/* Planets Layout */}
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+          gap: "2rem",
+          justifyContent: "center",
+          width: "100%",
+          maxWidth: "1200px",
+        }}
+      >
+        {ctx.planets.map((planet) => (
+          <Box
+            key={planet.name}
+            sx={{
+              position: "relative",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "transform 0.2s",
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
+            onClick={() => handlePlanetClick(planet.name)}
+          >
             <Box
-              key={planet.name}
               sx={{
                 width: planet.size,
                 height: planet.size,
-                backgroundColor: planet.color,
+                backgroundImage: `url(${planet.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
                 borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: "15px",
-                boxShadow: "0 0 15px rgba(0, 0, 0, 0.2)",
-                cursor: "pointer",
-                transition: "transform 0.2s",
-                "&:hover": {
-                  transform: "scale(1.1)",
-                },
+                boxShadow: "0 0 15px rgba(0, 0, 0, 0.5)",
               }}
-              onClick={() => handlePlanetClick(planet.name)}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                marginTop: "0.5rem",
+                textTransform: "uppercase",
+                color: "white",
+                fontFamily: "Jura, sans-serif",
+              }}
             >
-              <Typography variant="caption" color="white">
-                {planet.name}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
+              {planet.name}
+            </Typography>
+          </Box>
+        ))}
       </Box>
-    </Container>
+    </Box>
   );
 };
 
