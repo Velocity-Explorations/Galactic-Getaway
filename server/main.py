@@ -1,5 +1,5 @@
 from _types import PageDataResponse, QuestionRequest, QuestionResponse
-from ai import call_ai
+from ai import call_ai, call_image_ai
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from utils import age_to_education_level
@@ -21,7 +21,7 @@ app.add_middleware(
 @app.get("/")
 def read_root():
 
-    response_text = call_ai("Who are you?")
+    response_text = call_image_ai("Generate an image of a dog")
 
     return {"data": response_text}
 
@@ -32,14 +32,20 @@ def read_item(planet: str, age: int):
 
     description = call_ai(f"\n\nHuman: Generate a paragraph description about the {planet} for a {education_level} student \n\nAssistant:")
 
-    questions_str = call_ai(f"\n\nHuman: Given the following description: {description}, generate 3 questions for a {education_level} student based on the description. Output the only the questions, and follow the format: 'Question 1, Question 2, Question 3' \n\nAssistant:")
+    questions_str = call_ai(f"\n\nHuman: Given the following description: {description}, generate 3 questions for a {education_level} student based on the description. Output the only the questions, and follow the format: 'Question 1 | Question 2 | Question 3' \n\nAssistant:")
 
-    questions = questions_str.split(", ")
+    questions = questions_str.split("|")    
 
     return PageDataResponse(
         description=description,
         questions=questions
     )
+
+@app.get("/generate_image")
+def gen_image(planet: str):
+    response_text = call_image_ai(f"Generate a hyperrealistic image of what it would look like if you were standing on the surface of {planet}")
+
+    return {"data": response_text}
 
 @app.get("/asked_question")
 def read_item(req: QuestionRequest, planet: str, age: int):

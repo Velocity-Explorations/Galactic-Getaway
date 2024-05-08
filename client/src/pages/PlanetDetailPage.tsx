@@ -135,8 +135,28 @@ const PlanetDetailPage = () => {
           variant="outlined"
           sx={{ color: "white", borderColor: "white" }}
           fullWidth
+          onClick={async () => {
+            console.log("Starting!");
+
+            const resp = await fetch(
+              `http://127.0.0.1:8000/generate_image?planet=${planet.name}`
+            );
+
+            const data = await resp.json();
+
+            console.log(data);
+
+            const base64str = data.data;
+
+            const image = new Image();
+            image.src = "data:image/png;base64," + base64str;
+
+            const w = window.open("");
+
+            w?.document.write(image.outerHTML);
+          }}
         >
-          Ask a Question
+          See the surface!
         </Button>
       </Box>
     </Box>

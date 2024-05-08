@@ -1,3 +1,4 @@
+import base64
 import json
 
 import boto3
@@ -39,3 +40,33 @@ def call_ai(prompt: str) -> str:
         print(output["text"])
 
     return "\n".join([output["text"] for output in output_list])
+
+def call_image_ai(prompt: str) -> str:
+
+    bedrock = boto3.client(service_name='bedrock-runtime')
+
+    accept = "application/json"
+    content_type = "application/json"
+
+    body = json.dumps({
+        "taskType": "TEXT_IMAGE",
+        "textToImageParams": {
+            "text": prompt
+        },
+        "imageGenerationConfig": {
+            "numberOfImages": 1,
+            "height": 1024,
+            "width": 1024,
+            "cfgScale": 8.0,
+            "seed": 0
+        }
+    })
+
+    response = bedrock.invoke_model(
+        body=body, modelId='amazon.titan-image-generator-v1', accept=accept, contentType=content_type
+    )
+    response_body = json.loads(response.get("body").read())
+
+    base64_image = response_body.get("images")[0]
+
+    return base64_image
