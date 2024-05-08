@@ -2,14 +2,14 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import LoadingBar from "./components/LoadingBar";
 import { AppProvider } from "./context/AppContext.tsx";
 import { LoadingProvider } from "./context/LoadingContext.tsx";
-import LoadingBar from "./components/LoadingBar";
+import "./global.css";
 import HomePage from "./pages/HomePage.tsx";
 import PlanetDetailPage from "./pages/PlanetDetailPage.tsx";
 import ProceedPage from "./pages/ProceedPage.tsx";
 import theme from "./theme.ts";
-import "./global.css";
 
 const queryClient = new QueryClient();
 

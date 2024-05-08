@@ -1,7 +1,9 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useAppContext } from "../context/AppContext.tsx";
 import { PageDataResponse } from "../utils/types.ts";
 
@@ -9,6 +11,8 @@ const PlanetDetailPage = () => {
   const { planetName } = useParams();
   const ctx = useAppContext();
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const planet = ctx.planets.find((p) => p.name.toLowerCase() === planetName);
 
@@ -22,7 +26,27 @@ const PlanetDetailPage = () => {
 
   console.log(data);
 
-  if (isPending || data === undefined) return "Loading...";
+  if (isPending || data === undefined)
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          backgroundColor: "black",
+        }}
+      >
+        <ClipLoader
+          color={"#ffffff"}
+          loading={isPending}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
 
   if (error) return "An error has occurred: " + error.message;
 
@@ -143,6 +167,8 @@ const PlanetDetailPage = () => {
           onClick={async () => {
             console.log("Starting!");
 
+            setIsLoading(true);
+
             const resp = await fetch(
               `http://127.0.0.1:8000/generate_image?planet=${planet.name}`
             );
@@ -159,9 +185,11 @@ const PlanetDetailPage = () => {
             const w = window.open("");
 
             w?.document.write(image.outerHTML);
+
+            setIsLoading(false);
           }}
         >
-          See the surface!
+          {isLoading === true ? "Traveling..." : "See the surface!"}
         </Button>
       </Box>
     </Box>
