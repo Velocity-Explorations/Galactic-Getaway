@@ -69,7 +69,7 @@ const planets: Planet[] = [
     color: "#f5d49a",
     description:
       "Saturn is the sixth planet from the Sun and the second-largest in the Solar System.",
-    image: "/src/assets/saturn.png",
+    image: "/src/assets/Saturn.png",
   },
   {
     name: "Uranus",
