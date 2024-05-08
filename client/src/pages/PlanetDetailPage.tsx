@@ -126,6 +126,11 @@ const PlanetDetailPage = () => {
                 marginBottom: "1rem",
               }}
               fullWidth
+              onClick={() => {
+                // Open a new popup window with the answer
+
+                window.confirm(data.answers[data.questions.indexOf(question)]);
+              }}
             >
               {question}
             </Button>

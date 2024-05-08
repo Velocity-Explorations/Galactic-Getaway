@@ -14,4 +14,5 @@ class QuestionResponse(BaseModel):
 
 class PageDataResponse(BaseModel):
     questions: List[str]
+    answers: List[str]
     description: str

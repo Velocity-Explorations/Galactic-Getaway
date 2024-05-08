@@ -34,11 +34,16 @@ def read_item(planet: str, age: int):
 
     questions_str = call_ai(f"\n\nHuman: Given the following description: {description}, generate 3 questions for a {education_level} student based on the description. Output the only the questions, and follow the format: 'Question 1 | Question 2 | Question 3' \n\nAssistant:")
 
-    questions = questions_str.split("|")    
+    questions = questions_str.split("|") 
+
+    answers_str = call_ai(f"\n\nHuman: Given the following questions: {questions}, generate the answers to each question using {description}. Output the only the answers, and follow the format: 'Answer 1 | Answer 2 | Answer 3' \n\nAssistant:")
+  
+    answers = answers_str.split("|")
 
     return PageDataResponse(
         description=description,
-        questions=questions
+        questions=questions,
+        answers=answers
     )
 
 @app.get("/generate_image")

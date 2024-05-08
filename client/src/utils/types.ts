@@ -2,6 +2,7 @@
 
 export type PageDataResponse = {
   questions: string[];
+  answers: string[];
   description: string;
 };
 
