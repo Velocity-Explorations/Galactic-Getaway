@@ -56,13 +56,9 @@ Once you have the application running, you can:
 - Interact with the generated images, zoom in/out, and navigate through the vast cosmos.
 - Share your favorite images with friends and on social media platforms.
 
-## Contributing
-
-We welcome contributions from the community to enhance Galactic Getaway. If you'd like to contribute, please fork the repository, make your changes, and submit a pull request.
-
 ## Credits
 
-Galactic Getaway was created by [Your Name]. Special thanks to the following technologies and libraries:
+Galactic Getaway was created by the Velocity team. Special thanks to the following technologies and libraries:
 
 - React
 - FastAPI
